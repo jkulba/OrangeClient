@@ -1,4 +1,14 @@
-# Astro Starter Kit: Blog
+<a href="https://github.com/jkulba/OrangeClient/">
+    <img alt="The Orange Client" src="https://github.com/jkulba/OrangeClient/blob/main/orange.svg"
+    width="150" height="175">
+</a>
+
+# The Orange Client
+
+Astro Js website with React Js support and Tailwind css styling.
+
+
+## How to create the Astro Starter Kit: Blog
 
 ```sh
 npm create astro@latest -- --template blog
