@@ -1,0 +1,246 @@
+---
+// biome-ignore lint/correctness/noUnusedImports: Layout component is used in template below
+import Layout from "../layouts/Layout.astro";
+
+// Sample domain event data that would normally come from a RESTful API
+// biome-ignore lint/correctness/noUnusedVariables: Used in template below
+const events = [
+	{
+		id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		correlationId: "c0rr-3lat-10n1-d123-456789abcdef",
+		eventType: "OrderCreated",
+		eventData:
+			'{"orderId":"ORD-2025-001","customerId":"CUST-123","amount":299.99}',
+		occurredAt: "2025-11-11T10:30:00Z",
+		receivedAt: "2025-11-11T10:30:02Z",
+		processedAt: "2025-11-11T10:30:05Z",
+		status: "COMPLETED",
+		source: "order-service",
+		version: "1.0",
+		metadata: { region: "US-EAST", priority: "high" },
+	},
+	{
+		id: "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+		correlationId: "c0rr-3lat-10n1-d456-789abcdef012",
+		eventType: "PaymentProcessed",
+		eventData:
+			'{"paymentId":"PAY-2025-456","orderId":"ORD-2025-001","status":"success"}',
+		occurredAt: "2025-11-11T11:15:30Z",
+		receivedAt: "2025-11-11T11:15:32Z",
+		processedAt: "2025-11-11T11:15:35Z",
+		status: "COMPLETED",
+		source: "payment-service",
+		version: "1.0",
+		metadata: { gateway: "stripe", currency: "USD" },
+	},
+	{
+		id: "c3d4e5f6-a7b8-9012-cdef-123456789012",
+		correlationId: "c0rr-3lat-10n1-d789-abcdef012345",
+		eventType: "InventoryUpdated",
+		eventData: '{"productId":"PROD-789","quantity":50,"operation":"decrease"}',
+		occurredAt: "2025-11-11T09:45:00Z",
+		receivedAt: "2025-11-11T09:45:03Z",
+		processedAt: null,
+		status: "PENDING",
+		source: "inventory-service",
+		version: "1.0",
+		metadata: { warehouse: "WH-01" },
+	},
+	{
+		id: "d4e5f6a7-b8c9-0123-def1-234567890123",
+		correlationId: "c0rr-3lat-10n1-dabc-def012345678",
+		eventType: "UserRegistered",
+		eventData:
+			'{"userId":"USR-2025-789","email":"user@example.com","timestamp":"2025-11-11T08:00:00Z"}',
+		occurredAt: "2025-11-11T08:00:00Z",
+		receivedAt: "2025-11-11T08:00:01Z",
+		processedAt: null,
+		status: "FAILED",
+		source: "auth-service",
+		version: "1.0",
+		metadata: { retryCount: "3", lastError: "timeout" },
+	},
+	{
+		id: "e5f6a7b8-c9d0-1234-ef12-345678901234",
+		correlationId: "c0rr-3lat-10n1-ddef-012345678901",
+		eventType: "ShipmentDispatched",
+		eventData:
+			'{"shipmentId":"SHIP-2025-321","orderId":"ORD-2025-001","carrier":"FedEx"}',
+		occurredAt: "2025-11-11T14:20:00Z",
+		receivedAt: "2025-11-11T14:20:01Z",
+		processedAt: "2025-11-11T14:20:03Z",
+		status: "COMPLETED",
+		source: "shipping-service",
+		version: "1.0",
+		metadata: { trackingNumber: "1234567890" },
+	},
+	{
+		id: "f6a7b8c9-d0e1-2345-f123-456789012345",
+		correlationId: "c0rr-3lat-10n1-d012-345678901234",
+		eventType: "NotificationSent",
+		eventData:
+			'{"notificationId":"NOT-456","userId":"USR-2025-789","channel":"email"}',
+		occurredAt: "2025-11-11T12:00:00Z",
+		receivedAt: "2025-11-11T12:00:02Z",
+		processedAt: null,
+		status: "PROCESSING",
+		source: "notification-service",
+		version: "1.0",
+		metadata: { template: "welcome-email" },
+	},
+];
+
+// Helper function to format date/time
+// biome-ignore lint/correctness/noUnusedVariables: Used in template below
+function formatDateTime(dateString: string | null): string {
+	if (!dateString) return "—";
+	const date = new Date(dateString);
+	return date.toLocaleString("en-US", {
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+	});
+}
+
+// Helper function to get status badge color
+// biome-ignore lint/correctness/noUnusedVariables: Used in template below
+function getStatusColor(status: string): string {
+	switch (status) {
+		case "COMPLETED":
+			return "bg-green-100 text-green-800";
+		case "PENDING":
+			return "bg-yellow-100 text-yellow-800";
+		case "PROCESSING":
+			return "bg-blue-100 text-blue-800";
+		case "FAILED":
+			return "bg-red-100 text-red-800";
+		default:
+			return "bg-gray-100 text-gray-800";
+	}
+}
+
+// Helper function to truncate text
+// biome-ignore lint/correctness/noUnusedVariables: Used in template below
+function truncate(text: string, maxLength: number): string {
+	return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+}
+---
+
+<Layout title="AEM Client - Domain Events">
+	<div class="max-w-full">
+		<div class="mb-6">
+			<h1 class="text-4xl font-bold text-gray-800 mb-3">Domain Events</h1>
+			<p class="text-lg text-gray-600">
+				Application domain events from microservices. Data retrieved from RESTful API endpoint.
+			</p>
+		</div>
+
+		<div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+			<div class="flex items-start">
+				<svg
+					class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+						clip-rule="evenodd"></path>
+				</svg>
+				<div>
+					<h3 class="font-semibold text-blue-900 mb-1">Sample Data</h3>
+					<p class="text-sm text-blue-800">
+						Displaying sample domain event data. In production, this would be fetched from a RESTful API endpoint.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+			<div class="overflow-x-auto">
+				<table class="min-w-full divide-y divide-gray-200">
+					<thead class="bg-gray-50">
+						<tr>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Event Type
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Status
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Source
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Occurred At
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Processed At
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Event Data
+							</th>
+							<th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								Correlation ID
+							</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						{
+							events.map((event, index) => (
+								<tr class={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+									<td class="px-4 py-4 whitespace-nowrap">
+										<div class="flex items-center">
+											<div class="text-sm font-medium text-gray-900">{event.eventType}</div>
+										</div>
+									</td>
+									<td class="px-4 py-4 whitespace-nowrap">
+										<span class={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(event.status)}`}>
+											{event.status}
+										</span>
+									</td>
+									<td class="px-4 py-4 whitespace-nowrap">
+										<div class="text-sm text-gray-900">{event.source}</div>
+										<div class="text-xs text-gray-500">v{event.version}</div>
+									</td>
+									<td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+										{formatDateTime(event.occurredAt)}
+									</td>
+									<td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+										{formatDateTime(event.processedAt)}
+									</td>
+									<td class="px-4 py-4 text-sm text-gray-900 max-w-xs">
+										<div class="truncate" title={event.eventData}>
+											{truncate(event.eventData, 50)}
+										</div>
+									</td>
+									<td class="px-4 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+										{truncate(event.correlationId, 20)}
+									</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="mt-6 flex items-center justify-between">
+			<div class="text-sm text-gray-700">
+				Showing <span class="font-medium">{events.length}</span> events
+			</div>
+			<div class="flex gap-2">
+				<button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+					Previous
+				</button>
+				<button class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+					Next
+				</button>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+	</div>
+</Layout>

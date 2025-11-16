@@ -1,66 +1,23 @@
 ---
-import { SITE_TITLE } from "../consts";
-import HeaderLink from "./HeaderLink.astro";
-import Login from "./Login.astro";
-import Alerts from "./Alerts.astro";
-import Search from "./Search.astro";
+// Header component
 ---
 
-<header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-		<div class="action-links">
-			<Search />
-			<Alerts />
-			<Login />
-			
-		</div>
-	</nav>
+<header class="bg-white text-blue-900 shadow-lg">
+  <div class="px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/orange.svg" alt="Orange Client Logo" class="w-8 h-8" />
+        <h1 class="text-2xl font-bold">Orange Client</h1>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="/search" class="hover:text-blue-200 transition-colors">Search</a>
+        <a href="/about" class="hover:text-blue-200 transition-colors">About</a>
+      </nav>
+      <button class="md:hidden text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	.action-links {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-	@media (max-width: 720px) {
-		.action-links {
-			gap: 0.25rem;
-		}
-	}
-</style>

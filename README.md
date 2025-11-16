@@ -1,56 +1,11 @@
-<a href="https://github.com/jkulba/OrangeClient/">
-    <img alt="The Orange Client" src="https://github.com/jkulba/OrangeClient/blob/main/orange.svg"
-    width="150" height="175">
-</a>
+# AEM Client 
 
-# The Orange Client
+Built with AstroJs
 
-Astro Js website with React Js support and Tailwind css styling.
+- With support for React components
+- With support for Tailwind CSS
 
-
-## How to create the Astro Starter Kit: Blog
-
-```sh
-npm create astro@latest -- --template blog
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
+## 🧞 Project Commands
 
 All commands are run from the root of the project, from a terminal:
 
@@ -63,4 +18,37 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
----
+## Code Quality with Biome
+
+This project uses [Biome](https://biomejs.dev/) for linting and formatting.
+
+### VS Code Extension
+
+Install the official Biome extension for VS Code:
+- **Extension ID**: `biomejs.biome`
+- Install via VS Code: Search for "Biome" in the Extensions marketplace
+
+### Installation
+
+Install Biome as a dev dependency:
+
+```bash
+npm install --save-dev --save-exact @biomejs/biome
+```
+
+Initialize Biome configuration:
+
+```bash
+npx @biomejs/biome init
+```
+
+### Biome Commands (code formatting)
+
+| Command                          | Action                                              |
+| :------------------------------- | :-------------------------------------------------- |
+| `npx @biomejs/biome check`       | Check for formatting and linting issues             |
+| `npx @biomejs/biome check --write` | Check and automatically fix issues                |
+| `npx @biomejs/biome format`      | Format code without fixing lint issues              |
+| `npx @biomejs/biome format --write` | Format and write changes to files                |
+| `npx @biomejs/biome lint`        | Run only linting checks                             |
+

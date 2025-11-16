@@ -1,49 +1,60 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+// biome-ignore lint/correctness/noUnusedImports: Layout component is used in template below
+import Layout from "../layouts/Layout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title="AEM Client - Home">
+	<div class="max-w-4xl">
+		<h1 class="text-4xl font-bold text-gray-800 mb-6">Event Manager</h1>
+		<p class="text-lg text-gray-600 mb-4">
+			This is a modern Astro application with Tailwind CSS styling, featuring a reusable layout
+			with header, sidebar, and footer components.
+		</p>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+			<div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+				<div class="flex items-center mb-3">
+					<svg class="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+					</svg>
+					<h2 class="text-2xl font-semibold text-gray-800">Analytics</h2>
+				</div>
+				<p class="text-gray-600">
+					View comprehensive analytics and reporting dashboards with real-time insights into application performance and metrics.
+				</p>
+			</div>
+			<div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+				<div class="flex items-center mb-3">
+					<svg class="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+					</svg>
+					<h2 class="text-2xl font-semibold text-gray-800">Endpoints</h2>
+				</div>
+				<p class="text-gray-600">
+					Manage and monitor API endpoints with detailed configuration, status tracking, and service management capabilities.
+				</p>
+			</div>
+			<div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+				<div class="flex items-center mb-3">
+					<svg class="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+					</svg>
+					<h2 class="text-2xl font-semibold text-gray-800">Events</h2>
+				</div>
+				<p class="text-gray-600">
+					Track and manage domain events from microservices with detailed event data, status monitoring, and processing history.
+				</p>
+			</div>
+			<div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+				<div class="flex items-center mb-3">
+					<svg class="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+					</svg>
+					<h2 class="text-2xl font-semibold text-gray-800">Search</h2>
+				</div>
+				<p class="text-gray-600">
+					Quickly search and filter through application data and resources with powerful search capabilities and advanced filtering.
+				</p>
+			</div>
+		</div>
+	</div>
+</Layout>
